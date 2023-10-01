@@ -1,0 +1,38 @@
+@model TaldykNews.WebUI.Models.ViewModel.Account.LoginVM
+
+<div class="container right-panel-active">
+    <div class="container__form container--signin">
+        <form class="form" method="post">
+            <h2 class="form__title">Войти</h2>
+            <div>
+                <div>
+                    <input asp-for="Email" placeholder="Почта" class="input" />
+                    <span asp-validation-for="Email" class="error" />
+                </div>
+                <div>
+                    <input asp-for="Password" placeholder="Пароль" class="input" />
+                    <span asp-validation-for="Password" class="error" />
+                </div>
+                <button class="btn">Войти</button>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        </form>
+    </div>
+    <div class="container__overlay">
+        <div class="overlay">
+            <div class="overlay__panel overlay--left">
+                <img src="~/images/logo1.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/login.css">
+}
+@section Scripts{
+
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+}

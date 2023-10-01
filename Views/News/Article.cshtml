@@ -1,0 +1,59 @@
+﻿@model TaldykNews.WebUI.Models.ViewModel.News.ArticleVM
+
+@{
+    if (Model is not null)
+    {
+        ViewData["Title"] = Model.Title;
+    }
+}
+<head>
+    <link rel="stylesheet" href="~/css/item.css" asp-append-version="true" />
+</head>
+
+<div class="container">
+    <div class="intro">
+        <h1 class="heading-1">@Model.Title</h1>
+        <div class="sub-heading">
+            <p><span>@Model.CreationDate</span></p>
+            <p class="importent">@Model.Author</p>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="home">
+            <div class="left">
+                <img src="@WebConstants.ImagePath@Model.Image" class="home-img" alt="Paper photo">
+                <h2 class="heading-2">
+                    @Model.Title
+                </h2>
+            </div>
+            <div class="right">
+                <h3 class="heading-3">Читать также</h3>
+                <div class="lists">
+                    @if (Model.SidebarList.Count() > 0)
+                    {
+                        @foreach (var item in Model.SidebarList)
+                        {
+                            <div class="list">
+                                <img src="@WebConstants.ImagePath@item.Image" alt="photo 1">
+                                <p><a asp-action="Article" asp-route-Id="@item.Id">@item.Title</a></p>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="list">
+                            <p>
+                                Всё!
+                            </p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <article>
+            <p>@Model.PreviewText</p>
+            <p>@Model.Text</p>
+        </article>
+    </div>
+</div>

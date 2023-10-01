@@ -1,0 +1,34 @@
+﻿@model News
+
+@{
+    ViewData["Title"] = "Удалить новость";
+}
+<head>
+    <link rel="stylesheet" href="~/css/addItem.css">
+</head>
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="container">
+            <input asp-for="Id" hidden />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Заголовок</label>
+                <input asp-for="Title" type="text" class="form-control" disabled/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author.FullName" class="control-label">Автор</label>
+                <input asp-for="Author.FullName" type="number" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="PreviewText" class="control-label">Превью</label>
+                <input asp-for="PreviewText" type="number" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label">Категория</label>
+                <input asp-for="Category" type="number" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn1 btn-danger" value="Удалить" />
+            </div>
+        </div>
+    </div>
+</form>

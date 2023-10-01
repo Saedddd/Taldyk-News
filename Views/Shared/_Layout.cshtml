@@ -1,0 +1,150 @@
+﻿@using System.Security.Claims
+
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewData["Title"] - TaldykNews</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- =============================================== header ======================================================= -->
+    <header id="header">
+        <div class="navigation-container">
+            <div class="top-head">
+                <div class="web-name">
+                    <a asp-action="Index"><img src="~/images/logo1.png" alt=""></a>
+                </div>
+                <div class="ham-btn">
+                    <span>
+                        <i class="fas fa-bars"></i>
+                    </span>
+                </div>
+                <div class="times-btn">
+                    <span>
+                        <i class="fas fa-times"></i>
+                    </span>
+                </div>
+            </div>
+            <!-- ============================================= nav =====================================================================================-->
+
+            <div class="nav-bar" id="nav-bar">
+                <nav>
+                    <ul>
+                        <li><a asp-controller="News" asp-action="Index">Картина дня</a></li>
+                        @await Component.InvokeAsync("CategoriesList")
+                    </ul>
+                </nav>
+            </div>
+            <ul class="menu">
+                @if (Context.User.FindFirst(ClaimTypes.Name) is not null)
+                {
+                    <li>
+                        <a>Новости</a>
+                        <ul>
+                            <li>
+                                <a asp-controller="News" asp-action="Upsert">Создать</a>
+                            </li>
+                            <li>
+                                <a asp-controller="News" asp-action="NewsList">Список</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="Account" asp-action="Index">Личный кабинет</a>
+                    </li>
+                    @if (Context.User.IsInRole("Admin"))
+                    {
+                            <li>
+                                <a>Админ</a>
+                                <ul>
+                                    <li>
+                                        <a asp-controller="Account" asp-action="Register">Зарегистрировать пользователя</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Account" asp-action="Users">Список пользователей</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Category" asp-action="Index">Категории</a>
+                                    </li>
+                                </ul>
+                            </li>
+                    }
+                    <li>
+                        <a asp-controller="Account" asp-action="Logout">Выход</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-controller="Account" asp-action="Login">Вход</a>
+                    </li>
+                }
+            </ul>
+
+            <!--============================   Социальные сети ==========================================================-->
+            <div class="social-icons">
+                <ul>
+                    <li>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+                <h2>О сайте</h2>
+                <p>Сетевое издание TaldikNews - крупнейший сетевой агрегатор города Талдыкорган. С 2022 года мы работаем чтобы донести до вас самую актуальную и достоверную информацию.</p>
+            </div>
+
+            <div class="footer-right">
+                <h2>Подписаться на рассылку</h2>
+                <p>Чтобы подписаться на новостную рассылку введите свой электронный адрес в форму ниже и нажмите "Подтвердить"</p>
+
+                <div>
+                    <input class="email" type="text" placeholder="E-mail">
+                    <i class="fas fa-envelope"></i>
+                </div>
+            </div>
+        </div>
+
+        <p>&copy;2022 by Jakataev Bekzat</p>
+    </footer>
+
+
+    <!-- BUTTON TO TOP -->
+    <a href="#" class="arrowUP-none">
+        <img src="~/images/arrow.png" alt="">
+    </a>
+    <!-- END BUTTON TO TOP -->
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Styles", required: false)
+</body>
+</html>

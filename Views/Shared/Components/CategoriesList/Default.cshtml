@@ -1,0 +1,7 @@
+﻿@using TaldykNews.WebUI.Models
+@model IEnumerable<Category>
+
+@foreach (var category in Model)
+{
+    <li><a asp-area="" asp-controller="News" asp-action="ArticleByCategory" asp-route-category="@category.Name">@category.Name</a></li>
+}

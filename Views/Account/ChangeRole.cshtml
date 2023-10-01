@@ -1,0 +1,35 @@
+﻿@model TaldykNews.WebUI.Models.ViewModel.Account.ChangeRoleVM
+@{
+    ViewData["Title"] = "Смена роли";
+}
+
+<div class="container">
+    <h2 class="text-center">Изменить роль</h2>
+    <form method="post" enctype="multipart/form-data">
+        <input asp-for="Id" hidden />
+        <div class="">
+            <div class="form-row mt-2">
+                <label asp-for="FullName" class="col"><b>ФИО</b></label>
+                <input asp-for="FullName" class="col" disabled>
+            </div>
+            <div class="form-row mt-2">
+                <label asp-for="Email" class="col"><b>E-mail</b></label>
+                <input asp-for="Email" class="col" disabled>
+            </div>
+            <div class="form-row mt-2">
+                <label asp-for="Role" class="col"><b>Статус</b></label>
+                <select asp-for="Role" class="col">
+                    <option value="Writer" selected="selected">Редактор</option>
+                    <option value="Admin">Администратор</option>
+                </select>
+            </div>
+            <div class="row mt-2">
+                <button type="submit" class="btn btn-danger">
+                    Изменить роль
+                </button>
+                <a asp-controller="News" asp-action="Index" class="btn btn-primary">Назад</a>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </div>
+        </div>
+    </form>
+</div>

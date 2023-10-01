@@ -1,0 +1,40 @@
+﻿@model TaldykNews.WebUI.Models.ViewModel.Account.UsersVM
+
+<div class="container">
+    <h2 class="text-center">Данные о пользователях</h2>
+    <table class="table">
+        <tr>
+            <th><a asp-route-sortOrder="Name">ФИО</a></th>
+            <th>E-mail</th>
+            <th><a asp-route-sortOrder="Role">Статус</a></th>
+            <th>Действия</th>
+        </tr>
+        @foreach (var user in Model.Users){
+            <tr>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>@user.Role.Name</td>
+                <td>
+                    <ul>
+                    @if (user.Role.Name != "Admin"){
+                            <li>
+                                <a asp-controller="Account" asp-action="ChangeRole" asp-route-Id="@user.Id">Повысить</a>
+                            </li>
+                    }
+                    @if (User.IsInRole("Admin")){
+                            <li><a asp-controller="Account" asp-action="Delete" asp-route-Id="@user.Id">Удалить</a></li>
+                    }
+                    </ul>
+                    </td>
+            </tr>
+        }
+    </table>
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" asp-route-page="@(Model.CurrentPage-1)">Предыдущая</a></li>
+        @for (int i = 1; i <= Model.Pages; i++)
+        {
+            <li class="page-item"><a class="page-link" asp-route-page="@i">@i</a></li>
+        }
+        <li class="page-item"><a class="page-link" asp-route-page="@(Model.CurrentPage+1)">Следующая</a></li>
+    </ul>
+</div>

@@ -1,0 +1,97 @@
+﻿@using TaldykNews.WebUI.Models.ViewModel.News
+@model UpsertVM
+
+@{
+    var title = "Добавить новость";
+}
+<head>
+    <link rel="stylesheet" href="~/css/addNews.css">
+</head>
+<form method="post" enctype="multipart/form-data">
+    @if (Model.Article.Id != 0)
+    {
+        title = "Редактирование новости";
+        <input asp-for="Article.Id" hidden />
+    }
+    <div class="row">
+        <div class="container">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Article.Title" class="control-label">Заголовок</label>
+                <input asp-for="Article.Title" type="text" class="form-control" />
+                <span asp-validation-for="Article.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Article.AuthorId" hidden />
+                <label asp-for="Article.Author.FullName" class="control-label">Автор</label>
+                <input type="text" class="form-control" value ="@Model.Article.Author.FullName" disabled />
+            </div>
+            <div class="form-group">
+                <p>Картинка</p>
+                <input type="file" name="files" id="uploadBox" multiple-class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Article.Text" class="control-label">Текст</label>
+                <textarea asp-for="Article.Text" type="text" class="form-control textNews"></textarea>
+                <span asp-validation-for="Article.Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Article.PreviewText" class="control-label">Текст-превью</label>
+                <input asp-for="Article.PreviewText" type="text" class="form-control" />
+                <span asp-validation-for="Article.PreviewText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Article.CreationDate" class="control-label">Дата</label>
+                <input asp-for="Article.CreationDate" type="date" disabled class="form-control" />
+                <span asp-validation-for="Article.CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Article.CategoryId" class="control-label">Категория</label>
+                <select asp-for="Article.CategoryId">
+                    @foreach (var item in Model.CategoriesList){
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="Article.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @if (Model.Article.Id != 0)
+                {
+                    <input type="submit" class="btn1 btn-primary" value="Обновить" />
+                }
+                else
+                {
+                    <input type="submit" onclick="return validateInput()" class="btn1 btn-primary" value="Создать" />
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="col-4 ">
+    @if (Model.Article.Id != 0)
+    {
+        <img src="@WebConstants.ImagePath@Model.Article.Image" width="100%" style="border-radius:5px; border:1px solid #bbb" />
+    }
+</div>
+
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        function validateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire(
+                    'Error!',
+                    'Please upload an Image!',
+                    'error'
+                )
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

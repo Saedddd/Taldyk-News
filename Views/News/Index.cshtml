@@ -1,0 +1,108 @@
+@model TaldykNews.WebUI.Models.ViewModel.News.IndexVM
+
+@if (Model.News.Count() > 0){
+        int currentNewsSize = 5;
+        int hotTopicsSize = 4;
+        int mainNewsSize = 3;
+        int latestNewsSize = 5;
+        var currentNews = Model.News.Take(currentNewsSize);
+        var hotTopics = Model.News.Skip(currentNewsSize).Take(hotTopicsSize);
+        var mainNews = Model.News.Skip(currentNewsSize + hotTopicsSize).Take(mainNewsSize);
+        var latestNews = Model.News.Skip(currentNewsSize + hotTopicsSize + mainNewsSize).Take(latestNewsSize);
+    <section class="banner">
+        <div class="banner-main-content">
+            <h2>ПОЛУЧАЙТЕ ПОСЛЕДНИЕ НОВОСТИ</h2>
+            <h3>Ведущий портал новостей Талдыкоргана</h3>
+            <!-- ===================================================================================================================================== -->
+            <div class="current-news-head">
+                @foreach (var item in currentNews){
+                    <h5>@item.PreviewText<span>@item.Author.FullName</span></h5>
+                }
+            </div>
+        </div>
+        <!-- ============================================================================================================ -->
+
+        <div class="banner-sub-content">
+            @foreach (var item in hotTopics){
+                <div class="hot-topic">
+                <img src="@WebConstants.ImagePath@item.Image" alt="">
+                <div class="hot-topic-content">
+                    <h3>@item.Title</h3>
+
+                    <h4>@item.Author.FullName</h4>
+                    <p>@item.PreviewText</p>
+                    <a asp-action="Article" asp-route-Id="@item.Id">Подробнее</a>
+                </div>
+            </div>
+            }
+        </div>
+    </section>
+    <!-- ===============================================================================================================================     -->
+    <hr>
+
+    <main>
+
+        <!-- =============================================== Левый блок ===========================================================================             -->
+       @* <section class="main-container-left">
+            <h2>Главные новости</h2>
+            <div class="container-top-left">
+                <article>
+                    <img src="images/top-left.jpg">
+
+                    <div>
+                        <h3>Best Used Cars Under $20, 000 for families</h3>
+
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ea sint, nisi rem earum fugit? Facere veritatis sapiente eveniet quibusdam.</p>
+
+                        <a href="#">Подробнее</a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="container-bottom-left">
+                <article>
+                    <img src="images/top-left.jpg">
+                    <div>
+                        <h3>Best smart speakers for the year</h3>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi iure modi animi cupiditate. Explicabo, nihil?</p>
+
+                        <a href="#">Подробнее<span>>></span></a>
+                    </div>
+                </article>
+
+                <article>
+                    <img src="images/top-left.jpg">
+                    <div>
+                        <h3>iPad Pro, reviewed: Has the iPad become my main computer now?</h3>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi iure modi animi cupiditate. Explicabo, nihil?</p>
+
+                        <a href="#">Подробнее<span>>></span></a>
+                    </div>
+                </article>
+            </div>
+        </section>*@
+
+        <!-- ================================================== Правый блок ===================================================================             -->
+
+        <section class="main-container-right">
+            <h2>Последние события</h2>
+
+            @foreach (var item in mainNews){
+                <article>
+                    <h4>@item.Author.FullName</h4>
+                    <div>
+                        <h2>@item.Title</h2>
+
+                        <p>@item.PreviewText</p>
+
+                        <a asp-action="Article" asp-route-Id="@item.Id">Подробнее<span>>></span></a>
+                    </div>
+                    <img src="@WebConstants.ImagePath@item.Image">
+                </article>
+            }
+        </section>
+    </main>
+}
+else{
+    <p>Упс! Наш сайт только начал работать и пока что для вас нет новостей!</p>
+}

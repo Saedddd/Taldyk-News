@@ -1,0 +1,27 @@
+﻿@model TaldykNews.WebUI.Models.ViewModel.Category.IndexVM
+
+<div class="container">
+    <h2 class="text-center">Список категорий</h2>
+    <table class="table">
+        <tr>
+            <th><a asp-route-sortOrder="Name">Название</a></th>
+            <th>Порядок вывода</></th>
+            <th>Действия</th>
+        </tr>
+        @if (Model.Categories.Count() > 0){
+            @foreach (var category in Model.Categories)
+            {
+                <tr>
+                    <td>@category.Name</td>
+                    <td>@category.DisplayOrder</td>
+                    <td>
+                        <ul>
+                            <a asp-action="Delete" asp-route-Id="@category.Id">Удалить</a>
+                        </ul>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <a asp-action="Create" class="btn btn-primary">Добавить категорию</a>
+</div>

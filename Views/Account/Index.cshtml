@@ -1,0 +1,39 @@
+﻿@model TaldykNews.WebUI.Models.ViewModel.Account.IndexVM
+
+<div class="container">
+    <h2 class="text-center">Данные о пользователе</h2>
+    <form method="post" enctype="multipart/form-data">
+        <input asp-for="Id" hidden />
+        <div class="">
+            <div class="form-row mt-2">
+                <label asp-for="FullName" class="col"><b>ФИО</b></label>
+                <input asp-for="FullName" class="col " disabled>
+            </div>
+            <div class="form-row mt-2">
+                <label asp-for="Email" class="col"><b>E-mail</b></label>
+                <input asp-for="Email" class="col" disabled>
+            </div>
+            <div class="form-row mt-2">
+                <label asp-for="Password" class="col"><b>Новый пароль</b></label>
+                <input asp-for="Password" class="col">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-row mt-2">
+                <label asp-for="ConfirmPassword" class="col"><b>Повторите пароль</b></label>
+                <input asp-for="ConfirmPassword" class="col">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-row mt-2">
+                <label asp-for="Role" class="col"><b>Статус</b></label>
+                <input asp-for="Role" class="col" disabled>
+            </div>
+            <div class="row mt-2">
+                <button type="submit" class="btn btn-primary">
+                    Сохранить
+                </button>
+                <a asp-controller="News" asp-action="Index" class="btn btn-primary">Назад</a>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </div>
+        </div>
+    </form>
+</div>
